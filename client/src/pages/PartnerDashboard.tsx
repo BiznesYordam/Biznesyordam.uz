@@ -14,6 +14,8 @@ import { ProfitDashboard } from '@/components/ProfitDashboard';
 import { TrendingProducts } from '@/components/TrendingProducts';
 import { ChatSystem } from '@/components/ChatSystem';
 import { TierSelectionModal } from '@/components/TierSelectionModal';
+import { DataExportButton } from '@/components/DataExportButton';
+import { ComprehensiveAnalytics } from '@/components/ComprehensiveAnalytics';
 import { useAuth } from '@/hooks/useAuth';
 import { useTierAccess } from '@/hooks/useTierAccess';
 import { useLocation } from 'wouter';
@@ -23,7 +25,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import {
   Package, TrendingUp, MessageCircle, Settings, Crown, BarChart3, DollarSign,
   Target, Zap, CheckCircle, Clock, AlertTriangle, User, Building, CreditCard,
-  Globe, Truck, Star, ArrowRight, Plus, Eye, Edit, Trash2, Download, Upload, RefreshCw
+  Globe, Truck, Star, ArrowRight, Plus, Eye, Edit, Trash2, Download, Upload, RefreshCw,
+  FileSpreadsheet, TrendingDown
 } from 'lucide-react';
 
 interface Product { id: string; name: string; category: string; description: string; price: string; costPrice: string; sku: string; barcode: string; weight: string; isActive: boolean; createdAt: string; }
@@ -189,8 +192,9 @@ export default function PartnerDashboard() {
           </div>
 
           <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6">
+            <TabsList className="grid w-full grid-cols-7">
               <TabsTrigger value="overview"><BarChart3 className="w-4 h-4 mr-2" />Umumiy</TabsTrigger>
+              <TabsTrigger value="analytics"><FileSpreadsheet className="w-4 h-4 mr-2" />Tahlil</TabsTrigger>
               <TabsTrigger value="products"><Package className="w-4 h-4 mr-2" />Mahsulotlar</TabsTrigger>
               <TabsTrigger value="requests"><Truck className="w-4 h-4 mr-2" />So'rovlar</TabsTrigger>
               <TabsTrigger value="profit"><DollarSign className="w-4 h-4 mr-2" />Foyda</TabsTrigger>
