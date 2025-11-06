@@ -713,6 +713,36 @@ export function registerRoutes(app: express.Application): Server {
     });
   }));
 
+  // Email notification routes
+  app.post("/api/notifications/send", requireAuth, asyncHandler(async (req: Request, res: Response) => {
+    const { to, template, data } = req.body;
+    
+    if (!to || !template || !data) {
+      return res.status(400).json({
+        message: "Email, template va data talab qilinadi",
+        code: "MISSING_FIELDS"
+      });
+    }
+
+    // Import email service dynamically
+    const { sendEmail } = await import('./email');
+    const result = await sendEmail(to, template, data);
+
+    if (result.success) {
+      res.json({ 
+        success: true, 
+        message: "Email yuborildi",
+        messageId: result.messageId
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "Email yuborishda xatolik",
+        error: result.error
+      });
+    }
+  }));
+
   // Error handling middleware
   app.use(handleValidationError);
 

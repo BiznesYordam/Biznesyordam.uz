@@ -8,10 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Download, FileSpreadsheet, FileText, Loader2 } from 'lucide-react';
+import { Download, FileSpreadsheet, FileText, Loader2, File } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import * as ExcelJS from 'exceljs';
+import { PDFExportButton } from './PDFExportButton';
 
 interface DataExportButtonProps {
   data: any[];
@@ -288,34 +289,37 @@ export function DataExportButton({ data, filename, type }: DataExportButtonProps
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" disabled={isExporting}>
-          {isExporting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Yuklanmoqda...
-            </>
-          ) : (
-            <>
-              <Download className="mr-2 h-4 w-4" />
-              Yuklash
-            </>
-          )}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Format tanlang</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={exportToExcel}>
-          <FileSpreadsheet className="mr-2 h-4 w-4 text-green-600" />
-          Excel (.xlsx)
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={exportToCSV}>
-          <FileText className="mr-2 h-4 w-4 text-blue-600" />
-          CSV (.csv)
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center gap-2">
+      <PDFExportButton data={data} filename={filename} type={type} title={`${filename} hisoboti`} />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" disabled={isExporting}>
+            {isExporting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Yuklanmoqda...
+              </>
+            ) : (
+              <>
+                <Download className="mr-2 h-4 w-4" />
+                Yuklash
+              </>
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Format tanlang</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={exportToExcel}>
+            <FileSpreadsheet className="mr-2 h-4 w-4 text-green-600" />
+            Excel (.xlsx)
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={exportToCSV}>
+            <FileText className="mr-2 h-4 w-4 text-blue-600" />
+            CSV (.csv)
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
