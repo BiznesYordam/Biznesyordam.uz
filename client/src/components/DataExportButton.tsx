@@ -11,7 +11,7 @@ import {
 import { Download, FileSpreadsheet, FileText, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import ExcelJS from 'exceljs';
+import * as ExcelJS from 'exceljs';
 
 interface DataExportButtonProps {
   data: any[];
